@@ -74,7 +74,12 @@ select.addEventListener('change', event => {
 inputText.addEventListener('input', event => {
     selectedTitle = event.target.value;
     container.innerHTML = ''
-    renderCards(filterMovies(movies), container);
+    let filteredMovies = filterMovies(movies) 
+    if (filteredMovies.length === 0) {
+    container.innerText = 'No one of our movies match your search criteria, sorry.'
+    } else {
+    renderCards(filteredMovies, container)
+    }
 });
 
 
