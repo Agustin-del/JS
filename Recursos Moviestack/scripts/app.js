@@ -12,20 +12,20 @@ funciones.createOptions(funciones.genres(movies, select));
 
 let inputText = document.querySelector('#buscadores input')
 
-export let selectedGenre = 'all genres';
-export let selectedTitle = '';
+let selectedGenre = 'all genres';
+let selectedTitle = '';
 
 select.addEventListener('change', event => {
     selectedGenre = event.target.value;
     container.innerHTML = ''
-    funciones.renderCards(funciones.filterMovies(movies), container);
-    console.log(funciones.filterMovies(movies))
+    funciones.renderCards(funciones.filterMovies(movies, selectedGenre, selectedTitle), container);
+    console.log(funciones.filterMovies(movies,selectedGenre, selectedTitle))
 });     
 
 inputText.addEventListener('input', event => {
     selectedTitle = event.target.value.toLowerCase().trim();
     container.innerHTML = ''
-    let filteredMovies = funciones.filterMovies(movies) 
+    let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle) 
     if (filteredMovies.length === 0) {
     container.innerText = 'No one of our movies match your search criteria, sorry.'
     } else {

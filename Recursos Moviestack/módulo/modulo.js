@@ -1,6 +1,4 @@
-import { selectedGenre, selectedTitle } from "../scripts/app.js";
-
-export function createCard(movie) {
+function createCard(movie) {
     
     let template = document.createElement('template');
     
@@ -19,14 +17,14 @@ export function createCard(movie) {
     return template.innerHTML;
 }
 
-export function renderCards (movies, container) {
+function renderCards (movies, container) {
     for (const movie of movies) {
         container.innerHTML += createCard(movie);
     }
     return container;
 }
 
-export function genres(movies){
+function genres(movies){
     let genres = new Set();
 
     movies.forEach(movie => {
@@ -37,17 +35,17 @@ export function genres(movies){
     return [...genres]
 }
 
-export function createOptions(genres, contenedor) {
+function createOptions(genres, contenedor) {
 
     for (const genre of genres) {
         select.innerHTML += `<option value="${genre}">${genre}</option>`;
     }
 }
 
-export function filterMovies(movies) {
+function filterMovies(movies, selectedGenre, selectedTitle) {
     return movies.filter(movie => 
         (selectedGenre === 'all genres' || movie.genres.includes(selectedGenre)) &&
-        movie.title.toLowerCase().includes(selectedTitle.toLowerCase())
+        movie.title.toLowerCase().includes(selectedTitle.toLowerCase().trim())
     );
 }
 
