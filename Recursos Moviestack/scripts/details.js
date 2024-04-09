@@ -4,7 +4,7 @@ let movie = data.find(movie => movie.id == id.get('id'));
 
 let text = document.getElementById('contenidoTextual');
 
-text.innerHTML = `<img class = "w-[70%] lg:w-[49%]" src="${movie.image}" alt="">
+text.innerHTML = `<img class = "w-[70%] lg:w-[49%]" src="${movie.image}" alt="${movie.title}">
 <div class = "flex flex-col items-center gap-2 lg:items-start lg:w-[49%]">      
 <h2>${movie.title}</h2>
 <h3>${movie.tagline}</h3>

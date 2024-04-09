@@ -32,7 +32,7 @@ function genres(movies){
             genres.add(genre);
         });
     });
-    return [...genres]
+    return [...genres];
 }
 
 function createOptions(genres, contenedor) {

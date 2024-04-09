@@ -4,13 +4,13 @@ let container = document.getElementById('container');
 
 let movies = data.map(movie => movie);
 
-funciones.renderCards(movies, container)
+funciones.renderCards(movies, container);
 
 let select = document.querySelector('#buscadores select');
 
 funciones.createOptions(funciones.genres(movies, select));
 
-let inputText = document.querySelector('#buscadores input')
+let inputText = document.querySelector('#buscadores input');
 
 let selectedGenre = 'all genres';
 let selectedTitle = '';
@@ -24,12 +24,12 @@ select.addEventListener('change', event => {
 
 inputText.addEventListener('input', event => {
     selectedTitle = event.target.value.toLowerCase().trim();
-    container.innerHTML = ''
-    let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle) 
+    container.innerHTML = '';
+    let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle);
     if (filteredMovies.length === 0) {
-    container.innerText = 'No one of our movies match your search criteria, sorry.'
+    container.innerText = 'No one of our movies match your search criteria, sorry.';
     } else {
-    funciones.renderCards(filteredMovies, container)
+    funciones.renderCards(filteredMovies, container);
     }
 });
 
