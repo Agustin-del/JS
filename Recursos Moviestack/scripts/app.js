@@ -2,37 +2,45 @@ import funciones from '../módulo/modulo.js'
 
 let container = document.getElementById('container');
 
-let movies = data.map(movie => movie);
-
-funciones.renderCards(movies, container);
-
 let select = document.querySelector('#buscadores select');
-
-funciones.createOptions(funciones.genres(movies, select));
 
 let inputText = document.querySelector('#buscadores input');
 
 let selectedGenre = 'all genres';
+
 let selectedTitle = '';
 
-select.addEventListener('change', event => {
-    selectedGenre = event.target.value;
-    container.innerHTML = ''
-    funciones.renderCards(funciones.filterMovies(movies, selectedGenre, selectedTitle), container);
-    console.log(funciones.filterMovies(movies,selectedGenre, selectedTitle))
-});     
+fetch('https://moviestack.onrender.com/api/movies',
+    {
+        headers: {
+            'X-API-KEY' : '0ff70d54-dc0b-4262-9c3d-776cb0f34dbd'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
 
-inputText.addEventListener('input', event => {
-    selectedTitle = event.target.value.toLowerCase().trim();
-    container.innerHTML = '';
-    let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle);
-    if (filteredMovies.length === 0) {
-    container.innerText = 'No one of our movies match your search criteria, sorry.';
-    } else {
-    funciones.renderCards(filteredMovies, container);
-    }
-});
-
+        let movies = data.movies
+        funciones.renderCards(movies, container);
+        funciones.createOptions(funciones.genres(movies, select));
+        select.addEventListener('change', event => {
+            selectedGenre = event.target.value;
+            container.innerHTML = ''
+            funciones.renderCards(funciones.filterMovies(movies, selectedGenre, selectedTitle), container);
+        });     
+        
+        inputText.addEventListener('input', event => {
+            selectedTitle = event.target.value.toLowerCase().trim();
+            container.innerHTML = '';
+            let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle);
+            if (filteredMovies.length === 0) {
+            container.innerText = 'No one of our movies match your search criteria, sorry.';
+            } else {
+            funciones.renderCards(filteredMovies, container);
+            }
+        });
+        
+    })
+    .catch(error => console.log(error))
 
 // let filteredMoviesByGenre = []
 // select.addEventListener('change', event => {
