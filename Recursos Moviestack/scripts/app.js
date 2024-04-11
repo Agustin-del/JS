@@ -22,10 +22,16 @@ fetch('https://moviestack.onrender.com/api/movies',
         let movies = data.movies
         funciones.renderCards(movies, container);
         funciones.createOptions(funciones.genres(movies, select));
+
         select.addEventListener('change', event => {
             selectedGenre = event.target.value;
-            container.innerHTML = ''
-            funciones.renderCards(funciones.filterMovies(movies, selectedGenre, selectedTitle), container);
+            container.innerHTML = '';
+            let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle);
+            if (filteredMovies.length === 0) {
+                container.innerText = 'No one of our movies match your search criteria, sorry.';
+            } else {
+                funciones.renderCards(filteredMovies, container);
+            }
         });     
         
         inputText.addEventListener('input', event => {
