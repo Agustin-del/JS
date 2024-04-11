@@ -1,8 +1,5 @@
 let id = new URLSearchParams(location.search);
 
-
-
-
 fetch('https://moviestack.onrender.com/api/movies', {
     headers : {
         'X-API-KEY' : '0ff70d54-dc0b-4262-9c3d-776cb0f34dbd'
@@ -30,7 +27,7 @@ fetch('https://moviestack.onrender.com/api/movies', {
         </tr>
         <tr class ="border-2 border-white">
             <th class ="border-2 border-white p-2">Release date</th>
-            <td class ="border-2 border-white p-2">${movie.releases_date}</td>
+            <td class ="border-2 border-white p-2">${movie.release_date}</td>
         </tr>
         <tr class ="border-2 border-white">
             <th class ="border-2 border-white p-2">Runtime</th>
@@ -49,10 +46,10 @@ fetch('https://moviestack.onrender.com/api/movies', {
         </tr>
         <tr class ="border-2 border-white">
             <th class ="border-2 border-white p-2">Budget</th>
-            <td class ="p-2">${movie.budget}</td>
+            <td class ="p-2">${movie.budget.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
         </tr>
         <tr class ="border-2 border-white">
             <th class ="border-2 border-white p-2">Revenue</th>
-            <td class ="border-2 border-white p-2">${movie.revenue}</td>
+            <td class ="border-2 border-white p-2">${movie.revenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
         </tr>`;
     }) 
