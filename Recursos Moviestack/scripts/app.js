@@ -26,10 +26,8 @@ fetch('https://moviestack.onrender.com/api/movies',
         select.addEventListener('change', event => {
             selectedGenre = event.target.value;
             container.innerHTML = '';
-            let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle);
-            if (filteredMovies.length === 0) {
-                container.innerText = 'No one of our movies match your search criteria, sorry.';
-            } else {
+            let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle, container);
+            if (filteredMovies.length > 0) {
                 funciones.renderCards(filteredMovies, container);
             }
         });     
@@ -37,13 +35,38 @@ fetch('https://moviestack.onrender.com/api/movies',
         inputText.addEventListener('input', event => {
             selectedTitle = event.target.value.toLowerCase().trim();
             container.innerHTML = '';
-            let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle);
-            if (filteredMovies.length === 0) {
-            container.innerText = 'No one of our movies match your search criteria, sorry.';
-            } else {
+            let filteredMovies = funciones.filterMovies(movies, selectedGenre, selectedTitle, container);
+            if (filteredMovies.length > 0) {
             funciones.renderCards(filteredMovies, container);
             }
         });
+
+        let listFavorites = []
+        let lsFavs = JSON.parse(localStorage.getItem('favs'))
+        if(lsFavs) {
+            listFavorites = lsFavs
+        } 
+
+        container.addEventListener ('click', event => {
+            let dataId = event.target.dataset.id
+            if(dataId) {
+                if (!listFavorites.includes(dataId)) {
+                    listFavorites.push(dataId)
+                } else {
+                    listFavorites = listFavorites.filter(id => id != dataId)
+                }
+            }
+            localStorage.setItem('favs', JSON.stringify(listFavorites))    
+        })
+        // like.addEventListener('click', (event) =>{
+        //     console.log(event.target.parentElement.dataset.id)
+        //     if (event.target.parentElement.querySelector('#heart')) {
+        //         event.target.parentElement.innerHTML = `<img id ="fillHeart" class ="h-[45px] -top-4 -right-2 absolute" src="./Recursos Moviestack/imagenes/corazon_relleno.png">`
+        //     } else if (event.target.parentElement.querySelector('#fillHeart')) {
+        //         event.target.parentElement.innerHTML = `<img id = "heart" class ="h-[30px] -top-2 -right-0.5 absolute" src="./Recursos Moviestack/imagenes/corazon_vacio.png">`
+        //     }
+        // })
+
         
     })
     .catch(error => console.log(error))
