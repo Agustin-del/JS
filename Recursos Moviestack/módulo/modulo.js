@@ -4,11 +4,9 @@ export function createCard(movie, listFavorites) {
     
     let overview = movie.overview.slice(0, 50) + ' ...';
     let tagline = movie.tagline.slice(0, 20) + '...';
-    
+
     template.innerHTML += `<div class = "flex flex-col justify-start rounded-md w-[70%] bg-[#D2CCFF] md:w-1/3 lg:w-1/4 p-3 lg:text-lg   ">
-    <button data-id ="${movie.id}" class = "relative">
-    
-    </button>    
+    <button data-id ="${movie.id}" class = "relative"></button>    
     <img class = "rounded-md h-[150px] object-cover" src="https://moviestack.onrender.com/static/${movie.image}" alt="${movie.title}"> 
     <div class = "gap-2 p-1 h-[180px] flex flex-col justify-between lg:h-[220px]">
     <h2 class ="text-center border-2 border-white">${movie.title}</h2>

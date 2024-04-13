@@ -1,8 +1,11 @@
-import {renderCards, createCard} from '../módulo/modulo.js';
+import {renderCards} from '../módulo/modulo.js';
 
 let arrayFavs = JSON.parse(localStorage.getItem('favs'));
 let containerFavs = document.getElementById('favs');
 
+if (arrayFavs.length === 0) {
+    containerFavs.innerText = "Looks like you haven't selected a movie yet. Take your time exploring our collection of films and find the perfect one to enjoy. Happy browsing!"
+}
 fetch('https://moviestack.onrender.com/api/movies',
     {
         headers: {
