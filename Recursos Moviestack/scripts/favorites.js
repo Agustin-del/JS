@@ -1,7 +1,7 @@
-import {renderCards, createCard} from '../módulo/modulo.js'
+import {renderCards, createCard} from '../módulo/modulo.js';
 
-let arrayFavs = JSON.parse(localStorage.getItem('favs'))
-let containerFavs = document.getElementById('favs')
+let arrayFavs = JSON.parse(localStorage.getItem('favs'));
+let containerFavs = document.getElementById('favs');
 
 fetch('https://moviestack.onrender.com/api/movies',
     {
@@ -11,15 +11,30 @@ fetch('https://moviestack.onrender.com/api/movies',
     })
     .then (response => response.json())
     .then (data => {
-        let movies = data.movies
-        let favsMovies = []
+        let movies = data.movies;
+        let favsMovies = [];
         for (const id of arrayFavs) {
             (movies.forEach(movie => {
                 if (movie.id === id) {
-                    favsMovies.push(movie)
+                    favsMovies.push(movie);
                 }    
             })) 
         }        
-        renderCards(favsMovies, containerFavs)
+        renderCards(favsMovies, containerFavs, arrayFavs);
+        
+        containerFavs.addEventListener('click', event => {
+            let dataId = event.target.dataset.id;
+
+            if (dataId) {
+                if(!arrayFavs.includes(dataId)) {
+                    arrayFavs.push(dataId);
+                    event.target.parentElement.innerHTML = `<img id ="fillHeart" data-id="${dataId}" class ="h-[45px] -top-4 -right-2 absolute" src="./Recursos Moviestack/imagenes/corazon_relleno.png">`;
+                } else {
+                    arrayFavs = arrayFavs.filter (id => id != dataId);
+                    event.target.parentElement.innerHTML = `<img id = "heart" data-id="${dataId}" class ="h-[30px] -top-2 -right-0.5 absolute" src="./Recursos Moviestack/imagenes/corazon_vacio.png">`;
+                }
+            }
+            localStorage.setItem('favs', JSON.stringify(arrayFavs));
+        })
     })
         
