@@ -33,9 +33,7 @@ fetch('https://moviestack.onrender.com/api/movies',
         
         container.addEventListener ('click', event => {
             let dataId = event.target.dataset.id;
-        
             if(dataId) {
-        
                 if (!listFavorites.includes(dataId)) {
                     listFavorites.push(dataId);
                     event.target.parentElement.innerHTML = `<img id ="fillHeart" data-id="${dataId}" class ="h-[45px] -top-4 -right-2 absolute" src="./Recursos Moviestack/imagenes/corazon_relleno.png">`;
